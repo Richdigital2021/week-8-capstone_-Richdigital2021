@@ -26,6 +26,7 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    role
   });
 
   if (user) {
