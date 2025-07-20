@@ -14,7 +14,7 @@ const jobSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['pending', 'interview', 'declined'],
+      enum: ['pending', 'interview', 'offered', 'rejected', 'declined'],
       default: 'pending',
     },
     createdBy: {
@@ -26,5 +26,5 @@ const jobSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Job = mongoose.model('Job', JobSchema);
+const Job = mongoose.model('Job', jobSchema);
 export default Job;
