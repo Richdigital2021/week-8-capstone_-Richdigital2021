@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 import User from "../models/userModels.js";
 
 // Generate JWT token
@@ -41,6 +42,8 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+
+
 // @desc    Authenticate user & get token
 // @route   POST /api/users/login
 // @access  Public
@@ -54,14 +57,15 @@ const authUser = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      isAdmin: user.isAdmin,
+      role: user.role, // ✅ include role here
       token: generateToken(user._id),
     });
   } else {
     res.status(401);
-    throw new Error("Invalid email or password");
+    throw new Error('Invalid email or password');
   }
 });
+
 
 // @desc    Get logged in user's profile
 // @route   GET /api/users/profile
@@ -136,7 +140,7 @@ const updateUserRole = asyncHandler(async (req, res) => {
 // ✅ Export all functions in one place
 export {
   registerUser,
-  authUser as loginUser,
+  authUser,
   getUserProfile,
   getAllUsers,
   getMe,

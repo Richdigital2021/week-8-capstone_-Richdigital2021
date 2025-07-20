@@ -7,7 +7,7 @@ export default function ProtectedRoute({ children }) {
 }
 export function AdminProtectedRoute({ children, isAdmin }) {
   const { user } = useAuth();
-  return user && user.isAdmin ? children : <Navigate to="/dashboard" />;
+  return user && user.isAdmin ? children : <Navigate to="/Admindashboard" />;
 }
 export function UserProtectedRoute({ children }) {
   const { user } = useAuth();
@@ -19,7 +19,7 @@ export function GuestRoute({ children }) {
 }
 export function AdminRoute({ children }) {
   const { user } = useAuth();
-  return user && user.isAdmin ? children : <Navigate to="/dashboard" />;
+  return user && user.isAdmin ? children : <Navigate to="/Admindashboard" />;
 }
 export function UserRoute({ children }) {
   const { user } = useAuth();

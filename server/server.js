@@ -14,14 +14,20 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173", // adjust based on your frontend
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/users', userRoutes);
+app.use('/api/users', userRoutes); // ✅ This is enough
+
+// ❌ Remove this line:
+// app.use('/api/users', register); 
 
 // Start server
 const PORT = process.env.PORT || 5000;

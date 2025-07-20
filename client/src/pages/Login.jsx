@@ -2,52 +2,66 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import Navbar from '@/components/Navbar'; // adjust path if needed
 
-function LoginPage() {
+function Login() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!form.email || !form.password) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', form);
-      toast.success("Login successful!");
-      console.log(res.data);
-      navigate("/dashboard");
+      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/login`, form);
+
+      toast.success('Login successful!');
+
+      if (res.data.role === 'admin') {
+        navigate('/admindashboard');
+      } else {
+        navigate('/dashboard');
+      }
     } catch (err) {
-      console.error(err);
-      toast.error("Login failed. Please check your credentials.");
+      toast.error(err.response?.data?.message || 'Login failed');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 p-6 bg-purple rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Login</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={form.email}
-        onChange={(e) => setForm({ ...form, email: e.target.value })}
-        className="w-full p-2 mb-4 border rounded"
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={form.password}
-        onChange={(e) => setForm({ ...form, password: e.target.value })}
-        className="w-full p-2 mb-4 border rounded"
-      />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-        Login
-      </button>
-    </form>
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+      <Navbar /> {/* ✅ Add Navbar here */}
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto mt-10 p-6 bg-white text-gray-900 dark:bg-gray-800 dark:text-white rounded shadow"
+      >
+        <h2 className="text-2xl font-bold mb-4">Login</h2>
+
+        <input
+          type="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+          className="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded"
+        />
+
+        <input
+          type="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          className="w-full p-2 mb-4 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded"
+        />
+
+        <button
+          type="submit"
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 w-full"
+        >
+          Login
+        </button>
+      </form>
+    </div>
   );
 }
 
-export default LoginPage;
+export default Login;
