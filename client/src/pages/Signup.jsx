@@ -24,7 +24,9 @@ function Signup() {
     }
 
     try {
-      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`, form);
+
+      const res = await axios.post("/api/users/signup", form);
+
 
       toast.success('Signup successful!');
       console.log(res.data);
