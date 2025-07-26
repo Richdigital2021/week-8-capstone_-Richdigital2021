@@ -1,6 +1,5 @@
 import asyncHandler from "express-async-handler";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
 import User from "../models/userModels.js";
 
 // Generate JWT token
@@ -14,7 +13,7 @@ const generateToken = (id) => {
 // @route   POST /api/users/register
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
 
   const userExists = await User.findOne({ email });
   if (userExists) {

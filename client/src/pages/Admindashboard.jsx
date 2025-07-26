@@ -3,7 +3,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-export default function AdminDashboard() {
+export default function Admindashboard() {
   const { user, logout } = useAuth();
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();

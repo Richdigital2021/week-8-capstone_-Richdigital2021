@@ -5,6 +5,7 @@ import "./index.css";
 import { AuthProvider } from './context/AuthContext';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from "./components/theme-provider";
+import { JobProvider } from './hooks/JobContext';
 
 const root = document.getElementById("root");
 
@@ -17,8 +18,11 @@ if (!root) {
   <React.StrictMode>
     <AuthProvider>
       <BrowserRouter>
+
         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+          <JobProvider>
             <App />
+          </JobProvider>
         </ThemeProvider>
       </BrowserRouter>
     </AuthProvider>

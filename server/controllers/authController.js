@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import asyncHandler from 'express-async-handler';
 
 const createToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: '3d' });
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
 // @desc    Register a new user
@@ -62,10 +62,11 @@ export const login = asyncHandler(async (req, res) => {
       token,
       name: user.name,
       email: user.email,
-      role: user.isAdmin ? 'admin' : 'user'
-  });
+      role: user.role,
+    });
   } else {
     res.status(401);
     throw new Error('Invalid credentials');
   }
 });
+

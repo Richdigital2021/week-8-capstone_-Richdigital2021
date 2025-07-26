@@ -4,11 +4,13 @@ import LandingPage from "@/pages/LandingPage";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import Dashboard from "@/pages/Dashboard";
-import AdminDashboard from "@/pages/Admindashboard";
+import Admindashboard from "@/pages/Admindashboard";
 import ContactForm from "@/components/ContactForm";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "@/components/theme-provider";
+import AddJob from "@/pages/AddJob";
+
 
 function App() {
   return (
@@ -20,11 +22,13 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/add-job" element={<AddJob />} />
+
         <Route
           path="/protected"
           element={
             <ProtectedRoute>
-              <AdminDashboard />
+              <Admindashboard />
             </ProtectedRoute>
           }
         />

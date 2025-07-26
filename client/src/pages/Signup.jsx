@@ -25,8 +25,10 @@ function Signup() {
 
     try {
 
-      const res = await axios.post("/api/users/signup", form);
+      const res = await axios.post('http://localhost:5000/api/users/signup', form);
 
+      // ✅ Save token to localStorage
+      localStorage.setItem('token', res.data.token);
 
       toast.success('Signup successful!');
       console.log(res.data);
