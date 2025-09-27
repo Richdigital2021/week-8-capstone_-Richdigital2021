@@ -158,7 +158,7 @@ App will be running at: http://localhost:5173
 ---
 
 ## Live URL:
-- Live Demo: https://job-tracker-one-chi.vercel.app/signup
+- Live Demo: https://job-tracker-one-chi.vercel.app
 
 ---
 
